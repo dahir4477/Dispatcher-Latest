@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dispatch-web-config
+  namespace: dispatch
+data:
+  NEXT_PUBLIC_SITE_URL: "https://dispatch.example.com"
+  MONGODB_DB: "dispatch"
+

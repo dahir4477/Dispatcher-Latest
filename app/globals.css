@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+    --primary: 84 81% 44%;
+    --primary-foreground: 0 0% 0%;
+    --accent: 84 81% 44%;
+    --accent-foreground: 0 0% 0%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 65%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
+    --border: 0 0% 18%;
+    --ring: 84 81% 44%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/* Subtle grid background */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(163, 230, 53, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(163, 230, 53, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Glow effect */
+.glow-accent {
+  box-shadow: 0 0 60px -15px rgba(163, 230, 53, 0.4);
+}
+
+.glow-accent-sm {
+  box-shadow: 0 0 30px -8px rgba(163, 230, 53, 0.3);
+}

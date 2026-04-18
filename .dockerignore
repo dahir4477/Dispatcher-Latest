@@ -1,0 +1,39 @@
+# Root manifests must stay in context (do not add patterns that exclude these)
+# package.json / package-lock.json are required for the deps stage
+
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Next.js
+.next
+out
+
+# Git / IDE
+.git
+.gitignore
+.cursor
+.vscode
+.idea
+
+# Env (inject at runtime via K8s / ECS)
+.env
+.env.*
+!.env.example
+
+# Docs & misc
+*.md
+!README.md
+
+# Tests
+coverage
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel

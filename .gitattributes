@@ -1,0 +1,2 @@
+# Dockerfile line continuations break if Git converts to CRLF on Windows
+Dockerfile text eol=lf

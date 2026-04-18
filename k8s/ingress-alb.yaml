@@ -1,0 +1,30 @@
+# Requires AWS Load Balancer Controller on EKS:
+# https://kubernetes-sigs.github.io/aws-load-balancer-controller/
+#
+# Replace placeholders: your-domain.com, certificate ARN, subnets, security groups.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dispatch-landing
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:REGION:ACCOUNT:certificate/UUID
+    # alb.ingress.kubernetes.io/subnets: subnet-aaa,subnet-bbb
+    # alb.ingress.kubernetes.io/security-groups: sg-xxx
+spec:
+  ingressClassName: alb
+  rules:
+    - host: app.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dispatch-landing
+                port:
+                  number: 80

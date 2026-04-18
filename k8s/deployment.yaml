@@ -1,0 +1,52 @@
+# Suprihub / dispatch landing — Deployment
+# Apply after creating the Secret (see KUBERNETES-AWS.md)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dispatch-landing
+  labels:
+    app: dispatch-landing
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dispatch-landing
+  template:
+    metadata:
+      labels:
+        app: dispatch-landing
+    spec:
+      containers:
+        - name: app
+          image: REPLACE_WITH_ECR_URI:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: dispatch-landing-secrets
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001

@@ -1,0 +1,21 @@
+# Static PersistentVolume for MongoDB data. Binds to PVC mongo-data
+# (10-mongo-pvc.yaml) when accessModes, capacity, and storageClassName match.
+#
+# Requires storageClassName: manual on 10-mongo-pvc.yaml. Replace hostPath.path
+# with a directory on the node
+# that runs the mongo pod. For multi-node clusters, pin the pod or use local/CSI.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-data-pv
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: /data/dispatch-mongo
+    type: DirectoryOrCreate
