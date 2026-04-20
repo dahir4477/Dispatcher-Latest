@@ -14,8 +14,8 @@ services:
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-root_password}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-Koorajaan}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-dispatch}
     volumes:
       - mongo_data:/data/db
@@ -33,7 +33,7 @@ services:
       - path: .env
         required: false
     environment:
-      MONGODB_URI: ${MONGODB_URI:-mongodb://root:root_password@mongo:27017/dispatch?authSource=admin}
+      MONGODB_URI: ${MONGODB_URI:-mongodb://admin:Koorajaan@mongo:27017/dispatch?authSource=admin}
       MONGODB_DB: ${MONGODB_DB:-dispatch}
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
 
