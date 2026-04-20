@@ -3,12 +3,15 @@ kind: Service
 metadata:
   name: dispatch-web
   namespace: dispatch
+  labels:
+    app.kubernetes.io/name: dispatch-web
+    app.kubernetes.io/component: frontend
 spec:
   type: ClusterIP
   selector:
-    app: dispatch-web
+    app.kubernetes.io/name: dispatch-web
+    app.kubernetes.io/component: frontend
   ports:
     - name: http
       port: 80
       targetPort: http
-

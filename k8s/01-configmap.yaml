@@ -3,7 +3,10 @@ kind: ConfigMap
 metadata:
   name: dispatch-web-config
   namespace: dispatch
+  labels:
+    app.kubernetes.io/name: dispatch-web
+    app.kubernetes.io/component: frontend
 data:
+  # Override per cluster / domain (also bake into image at build for client bundles if needed).
   NEXT_PUBLIC_SITE_URL: "https://dispatch.example.com"
   MONGODB_DB: "dispatch"
-

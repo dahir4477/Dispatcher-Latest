@@ -3,17 +3,21 @@ kind: StatefulSet
 metadata:
   name: mongo
   namespace: dispatch
+  labels:
+    app.kubernetes.io/name: mongo
+    app.kubernetes.io/component: database
 spec:
-  serviceName: mongo
-  # Single replica: PVC mongo-data is ReadWriteOnce (one node mount only).
+  serviceName: mongo-headless
   replicas: 1
   selector:
     matchLabels:
-      app: mongo
+      app.kubernetes.io/name: mongo
+      app.kubernetes.io/component: database
   template:
     metadata:
       labels:
-        app: mongo
+        app.kubernetes.io/name: mongo
+        app.kubernetes.io/component: database
     spec:
       securityContext:
         fsGroup: 999
@@ -24,6 +28,7 @@ spec:
       containers:
         - name: mongo
           image: mongo:7
+          imagePullPolicy: IfNotPresent
           ports:
             - name: mongo
               containerPort: 27017
@@ -46,11 +51,17 @@ spec:
           readinessProbe:
             tcpSocket:
               port: mongo
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             periodSeconds: 10
           livenessProbe:
             tcpSocket:
               port: mongo
-            initialDelaySeconds: 15
+            initialDelaySeconds: 30
             periodSeconds: 20
-
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "2Gi"

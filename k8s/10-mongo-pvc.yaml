@@ -3,6 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: mongo-data
   namespace: dispatch
+  labels:
+    app.kubernetes.io/name: mongo
+    app.kubernetes.io/component: database
 spec:
   accessModes:
     - ReadWriteOnce
@@ -10,4 +13,3 @@ spec:
   resources:
     requests:
       storage: 10Gi
-

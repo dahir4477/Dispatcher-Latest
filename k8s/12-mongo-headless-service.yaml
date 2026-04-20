@@ -1,0 +1,19 @@
+# Headless service required by StatefulSet (stable pod DNS); clients use Service `mongo`.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-headless
+  namespace: dispatch
+  labels:
+    app.kubernetes.io/name: mongo
+    app.kubernetes.io/component: database
+spec:
+  clusterIP: None
+  publishNotReadyAddresses: false
+  selector:
+    app.kubernetes.io/name: mongo
+    app.kubernetes.io/component: database
+  ports:
+    - name: mongo
+      port: 27017
+      targetPort: mongo

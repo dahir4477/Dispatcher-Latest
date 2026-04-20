@@ -1,13 +1,12 @@
-# Static PersistentVolume for MongoDB data. Binds to PVC mongo-data
-# (10-mongo-pvc.yaml) when accessModes, capacity, and storageClassName match.
-#
-# Requires storageClassName: manual on 10-mongo-pvc.yaml. Replace hostPath.path
-# with a directory on the node
-# that runs the mongo pod. For multi-node clusters, pin the pod or use local/CSI.
+# Static PersistentVolume for MongoDB (storageClass manual).
+# Tune hostPath.path for your nodes, or swap for CSI / cloud disk and matching StorageClass.
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: mongo-data-pv
+  labels:
+    app.kubernetes.io/name: mongo
+    app.kubernetes.io/component: database
 spec:
   capacity:
     storage: 10Gi

@@ -1,0 +1,18 @@
+# Cluster DNS name `mongo.dispatch.svc.cluster.local` — use host `mongo` in MONGODB_URI.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+  namespace: dispatch
+  labels:
+    app.kubernetes.io/name: mongo
+    app.kubernetes.io/component: database
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: mongo
+    app.kubernetes.io/component: database
+  ports:
+    - name: mongo
+      port: 27017
+      targetPort: mongo

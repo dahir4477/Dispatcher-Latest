@@ -4,4 +4,4 @@ metadata:
   name: dispatch
   labels:
     app.kubernetes.io/name: dispatch
-
+    app.kubernetes.io/part-of: dispatch-stack
