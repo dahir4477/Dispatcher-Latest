@@ -30,7 +30,7 @@ spec:
               echo "Mongo is up."
       containers:
         - name: web
-          image: REPLACE_WITH_WEB_IMAGE:latest
+          image: dahir4477/suprihubapp.v1:latest
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
